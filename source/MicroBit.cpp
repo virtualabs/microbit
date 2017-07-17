@@ -79,9 +79,6 @@ MicroBit::MicroBit() :
        MICROBIT_ID_IO_P12,MICROBIT_ID_IO_P13,MICROBIT_ID_IO_P14,
        MICROBIT_ID_IO_P15,MICROBIT_ID_IO_P16,MICROBIT_ID_IO_P19,
        MICROBIT_ID_IO_P20),
-    bleManager(storage),
-    radio(),
-    ble(NULL)
 {
     // Clear our status
     status = 0;
@@ -143,35 +140,13 @@ void MicroBit::init()
 #if CONFIG_ENABLED(MICROBIT_HEAP_ALLOCATOR) && CONFIG_ENABLED(MICROBIT_HEAP_REUSE_SD)
             microbit_create_heap(MICROBIT_SD_GATT_TABLE_START + MICROBIT_SD_GATT_TABLE_SIZE, MICROBIT_SD_LIMIT);
 #endif
-            // Start the BLE stack, if it isn't already running.
-            if (!ble)
-            {
-                bleManager.init(getName(), getSerial(), messageBus, true);
-                ble = bleManager.ble;
-            }
-
-            // Enter pairing mode, using the LED matrix for any necessary pairing operations
-            bleManager.pairingMode(display, buttonA);
         }
     }
 #endif
 
     // Attempt to bring up a second heap region, using unused memory normally reserved for Soft Device.
 #if CONFIG_ENABLED(MICROBIT_HEAP_ALLOCATOR) && CONFIG_ENABLED(MICROBIT_HEAP_REUSE_SD)
-#if CONFIG_ENABLED(MICROBIT_BLE_ENABLED)
-    microbit_create_heap(MICROBIT_SD_GATT_TABLE_START + MICROBIT_SD_GATT_TABLE_SIZE, MICROBIT_SD_LIMIT);
-#else
     microbit_create_heap(MICROBIT_SRAM_BASE, MICROBIT_SD_LIMIT);
-#endif
-#endif
-
-#if CONFIG_ENABLED(MICROBIT_BLE_ENABLED)
-    // Start the BLE stack, if it isn't already running.
-    if (!ble)
-    {
-        bleManager.init(getName(), getSerial(), messageBus, false);
-        ble = bleManager.ble;
-    }
 #endif
 }
 

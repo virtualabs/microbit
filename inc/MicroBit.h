@@ -62,8 +62,6 @@ DEALINGS IN THE SOFTWARE.
 #include "MicroBitFiber.h"
 #include "MicroBitMessageBus.h"
 
-#include "MicroBitBLEManager.h"
-#include "MicroBitRadio.h"
 #include "MicroBitStorage.h"
 
 // MicroBit::flags values
@@ -119,11 +117,6 @@ class MicroBit
 
     //An object of available IO pins on the device
     MicroBitIO                  io;
-
-    // Bluetooth related member variables.
-	MicroBitBLEManager		    bleManager;
-    MicroBitRadio               radio;
-    BLEDevice                   *ble;
 
     /**
       * Constructor.
