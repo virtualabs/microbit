@@ -410,6 +410,7 @@ inline ManagedString MicroBit::getSerial()
   */
 inline void MicroBit::reset()
 {
+#if 0
     if(ble && ble->getGapState().connected) {
 
         // We have a connected BLE peer. Disconnect the BLE session.
@@ -418,7 +419,7 @@ inline void MicroBit::reset()
         // Wait a little while for the connection to drop.
         wait_ms(100);
     }
-
+#endif
     microbit_reset();
 }
 
