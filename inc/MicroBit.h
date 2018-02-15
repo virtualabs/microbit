@@ -41,7 +41,6 @@ DEALINGS IN THE SOFTWARE.
 #include "MicroBitImage.h"
 #include "MicroBitFont.h"
 #include "MicroBitEvent.h"
-#include "DynamicPwm.h"
 #include "MicroBitI2C.h"
 #include "NotifyEvents.h"
 
